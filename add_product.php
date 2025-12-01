@@ -257,8 +257,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             </div>
                         </div> </div> <div class="card-footer bg-white p-3 text-end">
-                        <a href="products.php" class="btn btn-light text-secondary me-2">ยกเลิก</a>
-                        <button type="submit" class="btn btn-primary px-4"><i class="bi bi-save"></i> บันทึกข้อมูล</button>
+                        <a href="products.php" class="btn btn-light btn-lg px-4 border">ยกเลิก</a>
+                        <button type="submit" name="update" id="update-btn" class="btn btn-success btn-lg px-4 shadow-sm">
+                                    <span class="me-1">💾</span> บันทึกการแก้ไข
+                                </button>
                     </div>
                 </div>
             </form>

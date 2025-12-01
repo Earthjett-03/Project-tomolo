@@ -199,9 +199,7 @@ if (isset($_POST['update'])) {
                     <div>
                         <h3 class="mb-0 fw-bold text-dark">✏️ แก้ไขข้อมูลสินค้า</h3>
                     </div>
-                    <a href="products.php" class="btn btn-outline-secondary">
-                        <span class="me-1">↩️</span> ย้อนกลับ
-                    </a>
+                    <a href="products.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> ย้อนกลับ</a>
                 </div>
 
                 <?php if ($msg): ?>
