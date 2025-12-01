@@ -1,5 +1,5 @@
 <?php 
 
-    $conn = mysqli_connect('localhost', 'root', '', 'warehouse') or die('connection failed!');
+    $conn = mysqli_connect('localhost', 'root', '', 'project') or die('connection failed!');
 
 ?>

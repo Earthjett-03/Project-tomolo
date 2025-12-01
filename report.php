@@ -84,9 +84,14 @@ while($row = $result->fetch_assoc()) { $all_bills[] = $row; }
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>รายงานสรุปสินค้า</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการคลังสินค้า | Warehouse System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+</head>
 <style>
 @media print {
     .no-print { display: none; }
@@ -120,26 +125,30 @@ while($row = $result->fetch_assoc()) { $all_bills[] = $row; }
 <body>
 
 <!-- แถบเมนูด้านบน -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark no-print">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">🏠 Warehouse System</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="homepage.php">หน้าแรก</a></li>
-          <li class="nav-item"><a class="nav-link" href="categories.php">ประเภทสินค้า</a></li>
-          <li class="nav-item"><a class="nav-link" href="suppliers.php">ซัพพลายเออร์</a></li>
-          <li class="nav-item"><a class="nav-link" href="products.php">สินค้า</a></li>          
-          <li class="nav-item"><a class="nav-link" href="warehouse_page.php">รายการบิลสินค้า</a></li>
-         <!-- <li class="nav-item"><a class="nav-link" href="history.php">ประวัติ</a></li> -->
-          <li class="nav-item"><a class="nav-link active" href="report.php">รายงาน</a></li>
-          <li class="nav-item"><a class="nav-link text-danger" href="logout.php">ออกจากระบบ</a></li>
-        </ul>
-      </div>
+
+
+      
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#"><i class="bi bi-box-seam-fill"></i> Warehouse System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto"> 
+                <li class="nav-item"><a class="nav-link" href="homepage.php">หน้าแรก</a></li>
+                <li class="nav-item"><a class="nav-link" href="categories.php">ประเภทสินค้า</a></li>          
+                <li class="nav-item"><a class="nav-link" href="suppliers.php">ซัพพลายเออร์</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.php">สินค้า</a></li>
+                <li class="nav-item"><a class="nav-link" href="warehouse_page.php">รายงานบิลสินค้า</a></li>
+                <li class="nav-item"><a class="nav-link" href="report.php">รายงาน</a></li>
+                
+                <li class="nav-item"><a class="nav-link text-danger" href="logout.php"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
 
 <div class="container mt-4">
     <h2 class="fw-bold mb-4">รายงานสรุปสินค้า</h2>
@@ -227,6 +236,20 @@ while($row = $result->fetch_assoc()) { $all_bills[] = $row; }
                             WHERE sd.sale_id = ?
                         ";
                     }
+                   $detail_sql = "
+                              SELECT 
+                             p.product_name,
+                             sd.quantity,
+                             sd.sale_price AS price,
+                              p.base_unit AS unit,
+                              p.unit_conversion_rate,
+                              p.base_unit,
+                            p.sub_unit
+                            FROM sale_details sd
+                            JOIN products p ON sd.product_id = p.product_id
+                            WHERE sd.sale_id = ?
+                        ";
+
                     $stmt2 = $conn->prepare($detail_sql);
                     $stmt2->bind_param("i", $row['bill_id']);
                     $stmt2->execute();
